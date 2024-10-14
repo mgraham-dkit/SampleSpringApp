@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang=en xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Updated Employee</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <div th:if="${employee != null}">
+            <p>Email successfully updated!</p>
+            <table>
+                <tr>
+                    <td>ID Number:</td>
+                    <td th:text="${employee.employeeNumber}"></td>
+                </tr>
+                <tr>
+                    <td>Name:</td>
+                    <td th:text="|${employee.firstName} ${employee.lastName}|"></td>
+                </tr>
+                <tr>
+                    <td>Title:</td>
+                    <td th:text="${employee.jobTitle}"></td>
+                </tr>
+                <tr>
+                    <td>Reports to:</td>
+                    <td th:text="${employee.reportsTo}"></td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td th:text="${employee.email}"></td>
+                </tr>
+                <tr>
+                    <td>Extension:</td>
+                    <td th:text="${employee.extension}"></td>
+                </tr>
+                <tr>
+                    <td>Office number:</td>
+                    <td th:text="${employee.officeCode}"></td>
+                </tr>
+                <tr> </tr>
+            </table>
+        </div>
+        <div th:unless="${employee != null}">
+            <p th:text="|No employee was found with the id ${empId}|" >
+        </div>
+    </body>
+</html>

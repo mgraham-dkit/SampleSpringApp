@@ -9,9 +9,9 @@ import web_patterns.persistence.EmployeeDao;
 import web_patterns.persistence.EmployeeDaoImpl;
 
 @Controller
-public class FrontController {
+public class GreetController {
 
-    @GetMapping("/controller")
+    @GetMapping("/greet_controller")
     public String processRequest(@RequestParam(name="id", required=false, defaultValue="1002") String id, Model model) {
         int idNum = Integer.parseInt(id);
 
