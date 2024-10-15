@@ -6,7 +6,7 @@ USE test_classicmodels;
 /*Table structure for table employees */
 DROP TABLE IF EXISTS employees;
 CREATE TABLE employees (
-  employeeNumber int(11) NOT NULL,
+  employeeNumber int(11) AUTO_INCREMENT NOT NULL,
   lastName varchar(50) NOT NULL,
   firstName varchar(50) NOT NULL,
   extension varchar(10) NOT NULL,

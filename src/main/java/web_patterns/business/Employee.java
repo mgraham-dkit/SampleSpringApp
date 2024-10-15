@@ -3,13 +3,13 @@ package web_patterns.business;
 import lombok.*;
 
 @Getter
+@Setter
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Builder
 @AllArgsConstructor
 public class Employee {
     @EqualsAndHashCode.Include
-    @NonNull
     private int employeeNumber;
     private String lastName;
     private String firstName;
