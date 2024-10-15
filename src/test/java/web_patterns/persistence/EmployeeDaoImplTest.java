@@ -3,12 +3,16 @@ package web_patterns.persistence;
 import org.junit.jupiter.api.Test;
 import web_patterns.business.Employee;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class EmployeeDaoImplTest {
+    private MySQLDao connectionSource = new MySQLDao("database_test.properties");
 
     @Test
-    void addEmployee_SuccessfulAdd() {
+    void addEmployee_SuccessfulAdd() throws SQLException {
         Employee tester = Employee.builder()
                 .employeeNumber(-1)
                 .email("michelle@michelle.ie")
@@ -21,7 +25,11 @@ class EmployeeDaoImplTest {
                 .build();
 
         int incorrectResult = -1;
-        EmployeeDao empDao = new EmployeeDaoImpl("database_test.properties");
+
+        Connection conn = connectionSource.getConnection();
+        conn.setAutoCommit(false);
+        EmployeeDao empDao = new EmployeeDaoImpl(conn);
+
         int result = empDao.addEmployee(tester);
         assertNotEquals(incorrectResult, result);
         tester.setEmployeeNumber(result);
@@ -30,6 +38,7 @@ class EmployeeDaoImplTest {
         assertNotNull(inserted);
 
         assertEmployeesEqual(tester, inserted);
+        conn.rollback();
     }
 
     private void assertEmployeesEqual(Employee e1, Employee e2){

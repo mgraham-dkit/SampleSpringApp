@@ -10,8 +10,13 @@ import java.util.Properties;
 
 public class MySQLDao {
     private Properties properties;
+    private Connection conn;
 
     public MySQLDao(){
+    }
+
+    public MySQLDao(Connection conn){
+        this.conn = conn;
     }
 
     public MySQLDao(String propertiesFilename){
@@ -29,6 +34,10 @@ public class MySQLDao {
     }
 
     public Connection getConnection(){
+        if(conn != null){
+            return conn;
+        }
+
         String driver = properties.getProperty("driver");
         String url = properties.getProperty("url");
         String database = properties.getProperty("database");
@@ -52,5 +61,17 @@ public class MySQLDao {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void freeConnection(Connection conn){
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(LocalDateTime.now() + ": An SQLException occurred while trying to close the " +
+                    "database connection" +
+                    ".");
+            System.out.println("Error: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }

@@ -12,7 +12,11 @@ public class EmployeeDaoImpl extends MySQLDao implements EmployeeDao {
     public EmployeeDaoImpl(String propertiesFile){
         super(propertiesFile);
     }
-    
+
+    public EmployeeDaoImpl(Connection conn){
+        super(conn);
+    }
+
     public EmployeeDaoImpl(){
         super();
     }
