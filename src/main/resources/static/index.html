@@ -5,8 +5,15 @@
         <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     </head>
     <body>
-        <p>Get your greeting <a href="/greet_controller">here</a></p>
+    <div>
+        <form method="get" action="/greet_controller">
+            <label for="empId">Employee ID:</label><br>
+            <input type="text" name="empId"><br>
+            <input type="submit" value="Get your greeting here...">
+        </form>
+    </div>
         <p>View all employees <a href="/viewEmployees">here</a></p>
+        <p>View all customers <a href="/viewCustomers">here</a></p>
         <div>
             <form method="post" action="/editEmail">
                 <label for="empId">Employee ID:</label><br>

@@ -8,5 +8,8 @@
         <div th:if="${employee != null}">
             <p th:text="|Hello, ${employee.getFirstName()} ${employee.getLastName()}!|" />
         </div>
+        <div th:unless="${employee != null}">
+            <p th:text="|No employee found with id ${empId}|"></p>
+        </div>
     </body>
 </html>
