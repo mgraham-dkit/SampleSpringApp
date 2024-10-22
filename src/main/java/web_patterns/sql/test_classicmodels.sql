@@ -3,6 +3,16 @@ CREATE DATABASE IF NOT EXISTS test_classicmodels;
 
 USE test_classicmodels;
 
+DROP TABLE IF EXISTS users;
+CREATE TABLE users(
+  username varchar(50) NOT NULL,
+  password varchar(60) NOT NULL,
+  firstName varchar(50),
+  lastName varchar(50),
+  email varchar(100) UNIQUE NOT NULL,
+  PRIMARY KEY(username)
+);
+
 /*Table structure for table employees */
 DROP TABLE IF EXISTS employees;
 CREATE TABLE employees (
