@@ -1,0 +1,21 @@
+<!-- src/main/resources/templates/fragments/menu.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Menu</title>
+  </head>
+  <body>
+  <!-- The next line allows us to include the menu bar in other thymeleaf template files -->
+  <div th:fragment="menu-bar">
+  <!-- Menu Bar -->
+    <nav class="menu-bar">
+      <ul>
+        <li><a th:href="@{/}">Home</a></li>
+        <li><a th:href="@{/user_index}">User Index</a></li>
+        <li><a th:href="@{/customer_index}">Customer Index</a></li>
+        <li><a th:href="@{/employee_index}">Employee Index</a></li>
+      </ul>
+    </nav>
+  </div>
+  </body>
+</html>

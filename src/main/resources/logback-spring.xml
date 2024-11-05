@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <!-- Define properties for use in the configuration -->
-    <property name="LOG_PATTERN" value="%blue(%d{yyyy-MM-dd HH:mm:ss}) %boldRed(%-5level) %logger{36} - %msg%n"/>
+    <property name="LOG_PATTERN"
+              value="%blue(%d{yyyy-MM-dd HH:mm:ss}) %boldRed(%-5level) %logger{36} - %msg%n%ex{short}%n"/>
     <property name="LOG_DIR" value="logs"/>
     <property name="LOG_FILE" value="application.log"/>
 
@@ -16,7 +17,7 @@
     <!-- File Appender for logging to a file -->
     <appender name="File" class="ch.qos.logback.core.FileAppender">
         <file>${LOG_DIR}/${LOG_FILE}</file>
-        <append>true</append>
+        <append>false</append>
         <encoder>
             <pattern>${LOG_PATTERN}</pattern>
         </encoder>

@@ -1,13 +1,12 @@
 package web_patterns.persistence;
 
+import lombok.extern.slf4j.Slf4j;
 import web_patterns.business.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
+import java.sql.*;
 import java.time.LocalDateTime;
 
+@Slf4j
 public class UserDaoImpl extends MySQLDao implements UserDao {
     public UserDaoImpl(String propertiesFile) {
         super(propertiesFile);
@@ -39,13 +38,9 @@ public class UserDaoImpl extends MySQLDao implements UserDao {
                 added = true;
             }
         } catch (SQLIntegrityConstraintViolationException e) {
-            System.out.println(LocalDateTime.now() + ": SQLIntegrityConstraintViolationException occurred in " +
-                    "register() when " +
-                    "adding new User");
-            System.out.println("\tError: " + e.getMessage());
+            log.error("SQLIntegrityConstraintViolationException occurred when attempting to register new User", e);
         } catch (SQLException e) {
-            System.out.println(LocalDateTime.now() + ": SQLException occurred in register() when preparing SQL");
-            System.out.println("\tError: " + e.getMessage());
+            log.error("SQLException occurred when attempting to register new User", e);
         }
 
         super.freeConnection(c);
@@ -53,15 +48,55 @@ public class UserDaoImpl extends MySQLDao implements UserDao {
         return added;
     }
 
+    @Override
+    public User login(String username, String password) {
+        User user = null;
+        Connection c = super.getConnection();
+        try (PreparedStatement ps = c.prepareStatement("SELECT * FROM users WHERE username = ? AND password = ?")) {
+            ps.setString(1, username);
+            ps.setString(2, password);
+
+            try(ResultSet rs = ps.executeQuery()){
+                if(rs.next()){
+                    user = mapRow(rs);
+                }
+            }catch (SQLException e) {
+                log.error("SQLException occurred when processing login query resultset", e);
+            }
+        }catch (SQLException e) {
+            log.error("SQLException occurred when attempting to login User", e);
+        }
+        super.freeConnection(c);
+
+        return user;
+    }
+
+    private static User mapRow(ResultSet rs) throws SQLException {
+        return User.builder()
+                .username(rs.getString("username"))
+                .firstName(rs.getString("firstName"))
+                .lastName(rs.getString("lastName"))
+                .email(rs.getString("email"))
+                .build();
+    }
+
     public static void main(String[] args) {
         UserDao userDao = new UserDaoImpl("database.properties");
         User user = new User("michelle", "password", "Michelle", "Graham", "michelle@dkit.ie");
         boolean added = userDao.register(user);
         if(added){
-            System.out.println(user + " was added correctedly");
+            System.out.println(user + " was added correctly");
         }else{
             System.out.println(user + "could not be added.");
         }
 
+        String username = "MichelleA";
+        String password = "password";
+        User loggedIn = userDao.login(username, password);
+        if(loggedIn != null){
+            System.out.println("Logged in as "+ loggedIn);
+        }else{
+            System.out.println("User with username " + username + " could not be logged in");
+        }
     }
 }

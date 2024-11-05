@@ -1,6 +1,7 @@
 package web_patterns.controllers;
 
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,9 +10,10 @@ import web_patterns.business.User;
 import web_patterns.persistence.UserDao;
 import web_patterns.persistence.UserDaoImpl;
 
+// Lombok annotation to add a logger to the class
+@Slf4j
 @Controller
 public class UserController {
-
     @PostMapping("registerUser")
     public String registerUser(
             @RequestParam(name="username") String username,
@@ -28,8 +30,10 @@ public class UserController {
         if(added){
             view = "registerSuccess";
             model.addAttribute("registeredUser", u);
+            log.info("User {} registered", u.getUsername());
         }else{
             view = "registerFailed";
+            log.info("Registration failed with username {}", username);
         }
 
         return view;
