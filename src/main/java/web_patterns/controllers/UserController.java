@@ -1,11 +1,9 @@
 package web_patterns.controllers;
 
-import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import web_patterns.business.User;
@@ -40,8 +38,7 @@ public class UserController {
 
         return view;
     }
-
-    //@GetMapping("/login")
+    
     @PostMapping("/login")
     public String loginUser(
             @RequestParam(name="username")String username,
@@ -49,6 +46,8 @@ public class UserController {
             Model model, HttpSession session){
 
         if(username.isBlank() || password.isBlank()){
+            String errorMsg = "Username and password cannot be blank";
+            model.addAttribute("errMsg", errorMsg);
             return "error";
         }
 
@@ -60,7 +59,7 @@ public class UserController {
             model.addAttribute("message", message);
             return "loginFailed";
         }
-        
+
         session.setAttribute("loggedInUser", u);
         return "loginSuccessful";
     }

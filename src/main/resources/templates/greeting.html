@@ -1,11 +1,15 @@
 <!DOCTYPE HTML>
 <html lang=en xmlns:th="http://www.thymeleaf.org">
     <head>
+        <link rel="stylesheet" href="/css/styles.css" />
         <title>Greetings!</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     <body>
-        <div th:if="${employee != null}">
+    <!-- Include the menu bar fragment -->
+    <div th:replace="~{fragments/menu :: menu-bar}"></div>
+
+    <div th:if="${employee != null}">
             <p th:text="|Hello, ${employee.getFirstName()} ${employee.getLastName()}!|" />
         </div>
         <div th:unless="${employee != null}">
