@@ -22,7 +22,7 @@ public class UserController {
             @RequestParam(name="first", required = false) String first,
             @RequestParam(name="last", required = false) String last,
             @RequestParam(name="email") String email,
-            Model model, HttpSession session){
+            Model model){
         // VALIDATION
         String view = "";
         UserDao userDao = new UserDaoImpl("database.properties");

@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import web_patterns.business.User;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 
 @Slf4j
 public class UserDaoImpl extends MySQLDao implements UserDao {
