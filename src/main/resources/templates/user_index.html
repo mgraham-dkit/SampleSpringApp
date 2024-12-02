@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en">
     <head>
-        <title>Register...</title>
+        <title>Login/Register</title>
         <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
         <link rel="stylesheet" href="/css/styles.css" />
         <script>
@@ -21,6 +21,12 @@
     <body>
         <!-- Include the menu bar fragment -->
         <div th:replace="~{fragments/menu :: menu-bar}"></div>
+
+        <!-- if a message has been left from the controller, display it -->
+        <div th:if="${msg != null}">
+            <p th:text="${msg}"></p>
+            <br/>
+        </div>
 
         <input type="button" id="toggleButton" value="Show Registration Form" onclick="toggleForm()"/>
         <div id="registerForm" style="display: none;">

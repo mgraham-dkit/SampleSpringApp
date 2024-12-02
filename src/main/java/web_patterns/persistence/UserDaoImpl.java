@@ -26,11 +26,12 @@ public class UserDaoImpl extends MySQLDao implements UserDao {
         boolean added = false;
 
         Connection c = super.getConnection();
-        try (PreparedStatement ps = c.prepareStatement("INSERT INTO users VALUES(?, ?, ?, ?, ?)")) {
+        try (PreparedStatement ps = c.prepareStatement("INSERT INTO users VALUES(?, ?, ?, ?, ?, ?)")) {
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getPassword());
             ps.setString(3, user.getFirstName());
             ps.setString(4, user.getLastName());
+            ps.setBoolean(5, user.isAdmin());
             ps.setString(5, user.getEmail());
 
             int rowsAffected = ps.executeUpdate();
@@ -76,13 +77,14 @@ public class UserDaoImpl extends MySQLDao implements UserDao {
                 .username(rs.getString("username"))
                 .firstName(rs.getString("firstName"))
                 .lastName(rs.getString("lastName"))
+                .isAdmin(rs.getBoolean("isAdmin"))
                 .email(rs.getString("email"))
                 .build();
     }
 
     public static void main(String[] args) {
         UserDao userDao = new UserDaoImpl("database.properties");
-        User user = new User("michelle", "password", "Michelle", "Graham", "michelle@dkit.ie");
+        User user = new User("michelle", "password", "Michelle", "Graham", false, "michelle@dkit.ie");
         boolean added = userDao.register(user);
         if(added){
             System.out.println(user + " was added correctly");

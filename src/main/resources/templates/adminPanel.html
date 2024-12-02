@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <title>Admin Panel</title>
+</head>
+<body>
+  <!-- Include the menu bar fragment -->
+  <div th:replace="~{fragments/menu :: menu-bar}"></div>
+
+  <div th:if="${#ctx.session.loggedInUser != null && #ctx.session.loggedInUser.isAdmin()}">
+    <p>Welcome, admin user!</p>
+  </div>
+  <div th:unless="${#ctx.session.loggedInUser != null && #ctx.session.loggedInUser.isAdmin()}">
+    <p>Insufficient permissions</p>
+  </div>
+</body>
+</html>

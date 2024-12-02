@@ -11,9 +11,10 @@
     <nav class="menu-bar">
       <ul>
         <li><a th:href="@{/}">Home</a></li>
-        <li><a th:href="@{/user_index}">User Index</a></li>
         <li><a th:href="@{/customer_index}">Customer Index</a></li>
         <li><a th:href="@{/employee_index}">Employee Index</a></li>
+        <li th:if="${#ctx.session.loggedInUser == null}"><a th:href="@{/user_index}">Login/Register</a></li>
+        <li th:unless="${#ctx.session.loggedInUser == null}"><a th:href="@{/logout}">Logout</a></li>
       </ul>
     </nav>
   </div>

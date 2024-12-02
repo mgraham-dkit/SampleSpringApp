@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import web_patterns.business.User;
@@ -25,7 +26,7 @@ public class UserController {
         // VALIDATION
         String view = "";
         UserDao userDao = new UserDaoImpl("database.properties");
-        User u = new User(username, password, first, last, email);
+        User u = new User(username, password, first, last, false, email);
         boolean added = userDao.register(u);
         if(added){
             view = "registerSuccess";
@@ -61,6 +62,19 @@ public class UserController {
         }
 
         session.setAttribute("loggedInUser", u);
-        return "loginSuccessful";
+
+        if(!u.isAdmin()) {
+            return "loginSuccessful";
+        }else{
+            return "adminPanel";
+        }
+    }
+
+    @GetMapping("/logout")
+    public String logout(Model model, HttpSession session){
+        session.setAttribute("loggedInUser", null);
+
+        model.addAttribute("msg", "Logout successful.");
+        return "adminPanel";
     }
 }
