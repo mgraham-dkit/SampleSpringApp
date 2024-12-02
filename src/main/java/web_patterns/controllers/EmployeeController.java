@@ -15,7 +15,7 @@ import java.util.List;
 public class EmployeeController {
 
     @PostMapping("/editEmail")
-    public String processRequest(@RequestParam(name="empId") String empId,
+    public String editEmail(@RequestParam(name="empId") String empId,
                                  @RequestParam(name="email") String email,
                                  Model model) {
         try {
@@ -36,12 +36,26 @@ public class EmployeeController {
     }
 
     @GetMapping("/viewEmployees")
-    public String processRequest(Model model) {
+    public String viewEmployee(Model model) {
         EmployeeDao empDao = new EmployeeDaoImpl("database.properties");
         List<Employee> employees = empDao.getAllEmployees();
         model.addAttribute("employees", employees);
 
-        return "employees";
+        return "employeeList";
+    }
+
+    @GetMapping("/getEmployee")
+    public String getEmployee(@RequestParam(name="empId") String empId,
+                              Model model) {
+        EmployeeDao empDao = new EmployeeDaoImpl("database.properties");
+        int id = Integer.parseInt(empId);
+        Employee emp = empDao.getById(id);
+        if(emp != null) {
+            model.addAttribute("employee", emp);
+        }else{
+            model.addAttribute("empId", id);
+        }
+        return "viewEmployee";
     }
 
     @GetMapping("/greet")

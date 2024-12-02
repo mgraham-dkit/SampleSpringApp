@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang=en xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <meta charset="UTF-8">
+    <title>Employee List</title>
+</head>
+<body>
+<!-- Include the menu bar fragment -->
+<div th:replace="~{fragments/menu :: menu-bar}"></div>
+
+<div th:if="${employee != null}">
+    <table>
+        <tr>
+            <td>ID Number:</td>
+            <td th:text="${employee.employeeNumber}"></td>
+        </tr>
+        <tr>
+            <td>Name:</td>
+            <td th:text="|${employee.firstName} ${employee.lastName}|"></td>
+        </tr>
+        <tr>
+            <td>Title:</td>
+            <td th:text="${employee.jobTitle}"></td>
+        </tr>
+        <tr>
+            <td>Reports to:</td>
+            <td th:text="${employee.reportsTo}"></td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td th:text="${employee.email}"></td>
+        </tr>
+        <tr>
+            <td>Extension:</td>
+            <td th:text="${employee.extension}"></td>
+        </tr>
+        <tr>
+            <td>Office number:</td>
+            <td th:text="${employee.officeCode}"></td>
+        </tr>
+        <tr> </tr>
+    </table>
+</div>
+<div th:unless="${employee != null}">
+    <p th:text="|No employee found for ID + ${idNum}|"></p>
+</div>
+<a th:href="@{/viewEmployees}">Back to employee list</a>
+</body>
+</html>
