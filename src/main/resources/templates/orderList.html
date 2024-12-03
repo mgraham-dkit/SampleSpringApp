@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang=en xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <meta charset="UTF-8">
+    <title>Order List</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            position: sticky;
+            top: 0;
+            background-color: #f4f4f4;
+            z-index: 1;
+        }
+
+        tbody {
+            display: block;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        thead, tbody tr {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+    </style>
+</head>
+<body>
+<!-- Include the menu bar fragment -->
+<div th:replace="~{fragments/menu :: menu-bar}"></div>
+<div th:if="${#ctx.session.loggedInUser != null}">
+    <div th:if="${#ctx.session.loggedInUser.isAdmin()}">
+        <table>
+            <thead>
+                <tr>
+                    <th>Order Number</th>
+                    <th>Customer Number</th>
+                    <th>Order Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="order : ${orders}">
+                    <td th:text="${order.orderNumber}"></td>
+                    <td th:text="${order.customerNumber}"></td>
+                    <td th:text="${order.orderDate}"></td>
+                    <td th:text="${order.status}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:unless="${#ctx.session.loggedInUser.isAdmin()}">
+        <p>Insufficient permissions to view order information</p>
+    </div>
+</div>
+<div th:unless="${#ctx.session.loggedInUser != null}">
+    <p>You must be a logged-in admin to view this information.</p>
+</div>
+</body>
+</html>

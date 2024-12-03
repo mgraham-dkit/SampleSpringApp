@@ -24,4 +24,9 @@ public class IndexController {
     public String employeeIndex(){
         return "employee_index";
     }
+
+    @GetMapping("/order_index")
+    public String orderIndex(){
+        return "order_index";
+    }
 }
