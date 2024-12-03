@@ -34,6 +34,8 @@ public class UserController {
             log.info("User {} registered", u.getUsername());
         }else{
             view = "registerFailed";
+            String message = "Registration failed with username = "+ username;
+            model.addAttribute("message", message);
             log.info("Registration failed with username {}", username);
         }
 
