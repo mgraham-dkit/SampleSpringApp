@@ -37,7 +37,7 @@
     </style>
 </head>
 <body>
-<!-- Include the menu bar fragment -->
+<!-- Include the menu bar fragment-->
 <div th:replace="~{fragments/menu :: menu-bar}"></div>
 <div th:if="${#ctx.session.loggedInUser != null}">
     <div th:if="${#ctx.session.loggedInUser.isAdmin()}">
@@ -54,7 +54,7 @@
                 <tr th:each="order : ${orders}">
                     <td th:text="${order.orderNumber}"></td>
                     <td th:text="${order.customerNumber}"></td>
-                    <td th:text="${order.orderDate}"></td>
+                    <td th:text="${#temporals.format(order.orderDate, #locale)}"></td>
                     <td th:text="${order.status}"></td>
                 </tr>
             </tbody>
