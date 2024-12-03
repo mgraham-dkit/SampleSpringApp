@@ -6,10 +6,10 @@
         <link rel="stylesheet" href="/css/styles.css" />
     </head>
     <body>
-    <div>
-        <!-- Include the menu bar fragment -->
-        <div th:replace="~{fragments/menu :: menu-bar}"></div>
+    <!-- Include the menu bar fragment -->
+    <div th:replace="~{fragments/menu :: menu-bar}"></div>
 
+    <div>
         <form method="get" action="/greet_controller">
             <label for="empId">Employee ID:</label><br>
             <input type="text" name="empId" required><br>
