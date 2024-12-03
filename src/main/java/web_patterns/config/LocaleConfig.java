@@ -17,7 +17,7 @@ public class LocaleConfig implements WebMvcConfigurer {
         // Set up a way to save the user's locale settings in their session
         SessionLocaleResolver slr = new SessionLocaleResolver();
         // Set the default locale to be used to English.
-        slr.setDefaultLocale(Locale.ENGLISH);
+        slr.setDefaultLocale(Locale.US);
         return slr;
     }
 

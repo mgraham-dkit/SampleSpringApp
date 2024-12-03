@@ -1,5 +1,12 @@
 USE test_classicmodels;
 
+
+insert into `users`(`username`, `password`, `firstName`, `lastName`, `email`) values
+    ('michelle', 'password', 'Michelle', 'Graham', 'michelle.graham@dkit.ie');
+
+insert into `users` values
+    ('admin', 'password', 'Admin', 'Graham', true, 'admin.graham@dkit.ie');
+
 /*Data for the table `employees` */
 insert  into `employees`(`employeeNumber`,`lastName`,`firstName`,`extension`,`email`,`officeCode`,`reportsTo`,`jobTitle`) values 
 (1002,'Murphy','Diane','x5800','dmurphy@classicmodelcars.com','1',NULL,'President'),
