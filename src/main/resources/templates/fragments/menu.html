@@ -3,6 +3,7 @@
 <html lang=en xmlns:th="http://www.thymeleaf.org">
   <head>
     <title>Menu</title>
+    <link rel="stylesheet" href="/css/styles.css" />
   </head>
   <body>
   <!-- The next line allows us to include the menu bar in other thymeleaf template files -->
@@ -17,7 +18,9 @@
         <li th:if="${#ctx.session.loggedInUser == null}"><a th:href="@{/user_index}">Login/Register</a></li>
         <li th:unless="${#ctx.session.loggedInUser == null}"><a th:href="@{/logout}">Logout</a></li>
       </ul>
+      <p th:text="${#locale}"></p>
     </nav>
+    <div th:replace="~{fragments/language_menu :: language-menu-bar}"></div>
   </div>
   </body>
 </html>
