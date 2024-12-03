@@ -1,7 +1,6 @@
 package web_patterns.persistence;
 
 import lombok.extern.slf4j.Slf4j;
-import web_patterns.business.Customer;
 import web_patterns.business.Order;
 
 import java.sql.*;

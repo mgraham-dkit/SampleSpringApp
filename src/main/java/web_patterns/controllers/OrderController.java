@@ -16,7 +16,7 @@ import java.util.List;
 @Slf4j
 public class OrderController {
     @GetMapping("/viewOrders")
-    public String viewOrders(Model model, HttpSession session){
+    public String viewOrders(Model model){
         OrderDao orderDao = new OrderDaoImpl("database.properties");
         List<Order> orders = orderDao.getAllOrders();
         model.addAttribute("orders", orders);
